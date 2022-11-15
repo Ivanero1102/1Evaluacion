@@ -324,88 +324,181 @@
                     echo "</table></div>";
                     break;
                 default:
+                    
                     if(isset($_POST['borrar_cliente_id'])){
                         $sql = "DELETE FROM cliente WHERE CLIENTE_ID = ?";
                         $stmt = $conn->prepare($sql);
                         $stmt->bindParam(1,$_POST['borrar_cliente_id']);
                         $stmt->execute();
                     }
-                    $sql= "SELECT * FROM CLIENTE";
                     echo
-                    "<div class='tabla'>
-                        <h1>Clientes</h1>
-                    </div>
-                    <div class='menu'>
-                        <form> 
-                            <p><input class='active' type='button' name='botonEnviar' value='Clientes'></p>
-                        </form>
-                        <form action='main.php'method='post'>
-                            <input type='hidden' name='pagina' value='1'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Trabajos'></p>
-                        </form>
-                        <form action='main.php'method='post'>
-                            <input type='hidden' name='pagina' value='2'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Empleados'></p>
-                        </form>
-                        <form action='main.php'method='post'>
-                            <input type='hidden' name='pagina' value='3'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Departamento'></p>
-                        </form>
-                        <form action='main.php'method='post'>
-                            <input type='hidden' name='pagina' value='4'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Ubicacion'></p>
-                        </form>
-                    </div>
-                    <div class='menu' >
-                        <form action='main.php' method='post'>
-                            <input type='hidden' name='pagina' value='3'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Informe'></p>
-                        </form>
-                        <form action='main.php' method='post'>
-                            <input type='hidden' name='pagina' value='4'></input>
-                            <p><input class='cell_menu' type='submit' name='botonEnviar' value='Log'></p>
-                        </form>
-                    </div>";
-                    echo "<div><table class='alineador'>";
-                    echo "<tr><th>CLIENTE_ID</th>
-                        <th>nombre</th>
-                        <th>Direccion</th>
-                        <th>Ciudad</th>
-                        <th>Estado</th>
-                        <th>CodigoPostal</th>
-                        <th>CodigoDeArea</th>
-                        <th>Telefono</th>
-                        <th>Vendedor_ID</th>
-                        <th>Limite_De_Credito</th>
-                        <th>Comentarios</th>
-                        <th colspan='2'><form action='' method='post'>
-                        <input type='hidden' name='pagina' value='0'></input>
-                        <span><input type='submit' name='ocupar' value='+' style='font-size: 40px; font-weight:25px'></span>
-                        </form></th></tr>";
-                    foreach ($conn->query($sql) as $row){
-                    echo "<tr><td>".$row["CLIENTE_ID"]."</td>
-                        <td>".$row["nombre"]."</td>
-                        <td>".$row["Direccion"]."</td>
-                        <td>".$row["Ciudad"]."</td>
-                        <td>".$row["Estado"]."</td>
-                        <td>".$row["CodigoPostal"]."</td>
-                        <td>".$row["CodigoDeArea"]."</td>
-                        <td>".$row["Telefono"]."</td>
-                        <td>".$row["Vendedor_ID"]."</td>
-                        <td>".$row["Limite_De_Credito"]."</td>
-                        <td>".$row["Comentarios"]."</td>
-                        <td><form action='' method='post'>
-                        <input type='hidden' name='pagina' value='0'></input>
-                        <input type='hidden' name='borrar_cliente_id' value='". $row["CLIENTE_ID"] ."'>
-                        <span><input type='submit' name='ocupar' value='🗑'></span>
-                        </form></td>
-                        <td><form action='' method='post'>
-                        <input type='hidden' name='pagina' value='0'></input>
-                        <input type='hidden' name='borrar_empleado' value='". $row["CLIENTE_ID"] ."'>
-                        <span><input type='submit' name='ocupar' value='🖉' style='font-size: 20px; font-weight:25px'></span>
-                        </form></td></tr>";
+                        "<div class='tabla'>
+                            <h1>Clientes</h1>
+                        </div>
+                        <div class='menu'>
+                            <form> 
+                                <p><input class='active' type='button' name='botonEnviar' value='Clientes'></p>
+                            </form>
+                            <form action='main.php'method='post'>
+                                <input type='hidden' name='pagina' value='1'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Trabajos'></p>
+                            </form>
+                            <form action='main.php'method='post'>
+                                <input type='hidden' name='pagina' value='2'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Empleados'></p>
+                            </form>
+                            <form action='main.php'method='post'>
+                                <input type='hidden' name='pagina' value='3'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Departamento'></p>
+                            </form>
+                            <form action='main.php'method='post'>
+                                <input type='hidden' name='pagina' value='4'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Ubicacion'></p>
+                            </form>
+                        </div>
+                        <div class='menu' >
+                            <form action='main.php' method='post'>
+                                <input type='hidden' name='pagina' value='3'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Informe'></p>
+                            </form>
+                            <form action='main.php' method='post'>
+                                <input type='hidden' name='pagina' value='4'></input>
+                                <p><input class='cell_menu' type='submit' name='botonEnviar' value='Log'></p>
+                            </form>
+                        </div>";
+                    if(isset($_POST['editar_cliente_id']) || isset($_POST['añadir'])){
+                        if(isset($_POST['añadir'])){
+                            echo"
+                            <form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <label for='añadir_cliente_id'>Id del cliente:</label>
+                            <input type='number' name='añadir_cliente_id'></br>
+                            <label for='añadir_cliente_nombre'>Nombre:</label>
+                            <input type='text' name='añadir_cliente_nombre'></br>
+                            <label for='añadir_cliente_direccion'>Direccion:</label>
+                            <input type='text' name='añadir_cliente_direccion'></br>
+                            <label for='añadir_cliente_ciudad'>Ciudad:</label>
+                            <input type='text' name='añadir_cliente_ciudad'></br>
+                            <label for='añadir_cliente_estado'>Estado:</label>
+                            <input type='text' name='añadir_cliente_estado'></br>
+                            <label for='añadir_cliente_codigo_postal'>Codigo postal:</label>
+                            <input type='number' name='añadir_cliente_codigo_postal'></br>
+                            <label for='añadir_cliente_codigo_area'>Codigo de area:</label>
+                            <input type='number' name='añadir_cliente_codigo_area'></br>
+                            <label for='añadir_cliente_telefono'>Telefono:</label>
+                            <input type='number' name='añadir_cliente_telefono'></br>
+                            <label for='id'>Vendedor ID:</label>
+                            <select name='añadir_cliente_vendedor_id'>";
+                            $sql= "SELECT * FROM EMPLEADOS";
+                            foreach ($conn->query($sql) as $row){
+                                echo "<option value='". $row["empleado_ID"] ."'>". $row["empleado_ID"] ."</option>";
+                            }
+                            echo "</select></br>
+                            <label for='añadir_cliente_credito'>Limite de credito:</label>
+                            <input type='number' name='añadir_cliente_credito'></br>
+                            <label for='añadir_cliente_comentario'>Comentario:</label>
+                            <input type='text' name='añadir_cliente_comentario'></br>
+                            <span><input type='submit' name='volver_menu' value='Añadir cliente'></span>
+                            </form>
+                            <form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <span><input type='submit' name='volver' value='Volver'></span>
+                            </form>";
+                            // $sql = "INSERT INTO cliente (CLIENTE_ID, nombre, Direccion, Ciudad, Estado, CodigoPostal, CodigoDeArea, Telefono, Vendedor_ID, Limite_De_Credito, Comentarios) 
+                            // VALUES ('99', 'Pepe', '9722 HAMILTON', 'BURLINGAME', 'CA', '95133 ', '415 ', '6443340', '7876', '10000.00', 'Trabaja muy rápido')";
+                        }else{
+                            echo"
+                            <form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <label for='id'>Id del cliente:</label>
+                            <input type='number' name='editar_cliente_id' value='".$_POST['editar_cliente_id']."' readonly></br>
+                            <label for='id'>Nombre:</label>
+                            <input type='text' name='editar_cliente_nombre' placeholder='".$_POST['editar_cliente_nombre']."'></br>
+                            <label for='id'>Direccion:</label>
+                            <input type='text' name='editar_cliente_direccion' placeholder='".$_POST['editar_cliente_direccion']."'></br>
+                            <label for='id'>Ciudad:</label>
+                            <input type='text' name='editar_cliente_ciudad' placeholder='".$_POST['editar_cliente_ciudad']."'></br>
+                            <label for='id'>Estado:</label>
+                            <input type='text' name='editar_cliente_estado' placeholder='".$_POST['editar_cliente_estado']."'></br>
+                            <label for='id'>Codigo postal:</label>
+                            <input type='number' name='editar_cliente_codigo_postal' placeholder='".$_POST['editar_cliente_codigo_postal']."'></br>
+                            <label for='id'>Codigo de area:</label>
+                            <input type='number' name='editar_cliente_codigo_area' placeholder='".$_POST['editar_cliente_codigo_area']."'></br>
+                            <label for='id'>Telefono:</label>
+                            <input type='number' name='editar_cliente_telefono' placeholder='".$_POST['editar_cliente_telefono']."'></br>
+                            <label for='id'>Vendedor ID:</label>
+                            <select name='editar_cliente_vendedor_id'>
+                                <option value='".$_POST['editar_cliente_vendedor_id']."' selected='selected'>".$_POST['editar_cliente_vendedor_id']."</option>";
+                            $sql= "SELECT * FROM EMPLEADOS";
+                            foreach ($conn->query($sql) as $row){
+                                echo "<option value='". $row["empleado_ID"] ."'>". $row["empleado_ID"] ."</option>";
+                            }
+                            echo
+                            "</select></br>
+                            <label for='id'>Limite de credito:</label>
+                            <input type='number' name='editar_cliente_credito' placeholder='".$_POST['editar_cliente_credito']."'></br>
+                            <label for='id'>Comentario:</label>
+                            <input type='text' name='editar_cliente_comentario' placeholder='".$_POST['editar_cliente_comentario']."'></br>
+                            <span><input type='submit' name='volver_menu' value='Editar cliente'></span>
+                            </form>
+                            <form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <span><input type='submit' name='volver' value='Volver'></span>
+                            </form>";
+                        }
+                    }else{
+                        echo "<div><table class='alineador'>";
+                        echo "<tr><th>CLIENTE_ID</th>
+                            <th>nombre</th>
+                            <th>Direccion</th>
+                            <th>Ciudad</th>
+                            <th>Estado</th>
+                            <th>CodigoPostal</th>
+                            <th>CodigoDeArea</th>
+                            <th>Telefono</th>
+                            <th>Vendedor_ID</th>
+                            <th>Limite_De_Credito</th>
+                            <th>Comentarios</th>
+                            <th colspan='2'><form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <span><input type='submit' name='añadir' value='+' style='font-size: 40px; font-weight:25px'></span>
+                            </form></th></tr>";
+                        $sql= "SELECT * FROM CLIENTE";
+                        foreach ($conn->query($sql) as $row){
+                        echo "<tr><td>".$row["CLIENTE_ID"]."</td>
+                            <td>".$row["nombre"]."</td>
+                            <td>".$row["Direccion"]."</td>
+                            <td>".$row["Ciudad"]."</td>
+                            <td>".$row["Estado"]."</td>
+                            <td>".$row["CodigoPostal"]."</td>
+                            <td>".$row["CodigoDeArea"]."</td>
+                            <td>".$row["Telefono"]."</td>
+                            <td>".$row["Vendedor_ID"]."</td>
+                            <td>".$row["Limite_De_Credito"]."</td>
+                            <td>".$row["Comentarios"]."</td>
+                            <td><form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <input type='hidden' name='borrar_cliente_id' value='". $row["CLIENTE_ID"] ."'>
+                            <span><input type='submit' name='ocupar' value='🗑'></span>
+                            </form></td>
+                            <td><form action='' method='post'>
+                            <input type='hidden' name='pagina' value='0'></input>
+                            <input type='hidden' name='editar_cliente_id' value='". $row["CLIENTE_ID"] ."'>
+                            <input type='hidden' name='editar_cliente_nombre' value='". $row["nombre"] ."'>
+                            <input type='hidden' name='editar_cliente_direccion' value='". $row["Direccion"] ."'>
+                            <input type='hidden' name='editar_cliente_ciudad' value='". $row["Ciudad"] ."'>
+                            <input type='hidden' name='editar_cliente_estado' value='". $row["Estado"] ."'>
+                            <input type='hidden' name='editar_cliente_codigo_postal' value='". $row["CodigoPostal"] ."'>
+                            <input type='hidden' name='editar_cliente_codigo_area' value='". $row["CodigoDeArea"] ."'>
+                            <input type='hidden' name='editar_cliente_telefono' value='". $row["Telefono"] ."'>
+                            <input type='hidden' name='editar_cliente_vendedor_id' value='". $row["Vendedor_ID"] ."'>
+                            <input type='hidden' name='editar_cliente_credito' value='". $row["Limite_De_Credito"] ."'>
+                            <input type='hidden' name='editar_cliente_comentario' value='". $row["Comentarios"] ."'>
+                            <span><input type='submit' name='editar' value='🖉' style='font-size: 20px; font-weight:25px'></span>
+                            </form></td></tr>";
+                        }
+                        echo "</table></div>";
                     }
-                    echo "</table></div>";
                     break;
             }
         ?>

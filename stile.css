@@ -117,6 +117,7 @@ table input[type=submit]{
     font-size: 30px;
     background-color: rgba(137, 43, 226, 0.5);
     color: white;
+    border: 0;
 }
 
 table input[type=submit]:hover{
