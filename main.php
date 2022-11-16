@@ -194,26 +194,29 @@
                     if(isset($_POST['añadir_acabado'])){
                         try {
                             $sql ="INSERT INTO 
-                                ubicacion (Ubicacion_ID, GrupoRegional) 
-                                VALUES (? ,?)";
+                                departamento (departamento_ID, Nombre, Ubicacion_ID) 
+                                VALUES (? ,?, ?)";
                             $stmt = $conn->prepare($sql);
-                            $stmt->bindParam(1,$_POST['añadir_ubicacion_id']);
-                            $stmt->bindParam(2,$_POST['añadir_grupo_regional']);
+                            $stmt->bindParam(1,$_POST['añadir_departamento_id']);
+                            $stmt->bindParam(2,$_POST['añadir_nombre']);
+                            $stmt->bindParam(2,$_POST['añadir_ubicacion_id']);
                             $stmt->execute();
                             $mensaje = "Ubicacion insertada correctamente";
                         }catch(PDOException $e){
-                            $mensaje = "Error, la ubicacion id ya se utiliza";
+                            $mensaje = "Error, el departamento id ya se utiliza";
                         }
                     }
                     if(isset($_POST['editar_acabado'])){
-                        $sql ="UPDATE ubicacion SET 
-                            GrupoRegional = ?
-                            WHERE Ubicacion_ID = ?";
+                        $sql ="UPDATE departamento SET 
+                            , Nombre = ?
+                            , Ubicacion_ID = ?
+                            WHERE departamento_ID = ?";
                             $stmt = $conn->prepare($sql);
-                            $stmt->bindParam(1,$_POST['editar_grupo_regional']);
+                            $stmt->bindParam(1,$_POST['editar_nombre']);
                             $stmt->bindParam(2,$_POST['editar_ubicacion_id']);
+                            $stmt->bindParam(3,$_POST['editar_departamento_id']);
                             $stmt->execute();
-                            $mensaje = "Ubicacion editado correctamente";
+                            $mensaje = "Departamento editado correctamente";
                     }
                     if(isset($_POST['borrar_departamento_id'])){
                         $sql = "UPDATE EMPLEADOS SET Departamento_ID = NULL WHERE Departamento_ID = ?;";
@@ -265,33 +268,17 @@
                             echo"
                             <form action='' method='post'>
                             <input type='hidden' name='pagina' value='3'></input>
-                            <label for='añadir_cliente_id'>Id del cliente:</label>
+                            <label for='añadir_departamento_id'>Departamento id:</label>
                             <input type='number' name='añadir_cliente_id'></br>
                             <label for='añadir_cliente_nombre'>Nombre:</label>
                             <input type='text' name='añadir_cliente_nombre'></br>
-                            <label for='añadir_cliente_direccion'>Direccion:</label>
-                            <input type='text' name='añadir_cliente_direccion'></br>
-                            <label for='añadir_cliente_ciudad'>Ciudad:</label>
-                            <input type='text' name='añadir_cliente_ciudad'></br>
-                            <label for='añadir_cliente_estado'>Estado:</label>
-                            <input type='text' name='añadir_cliente_estado'></br>
-                            <label for='añadir_cliente_codigo_postal'>Codigo postal:</label>
-                            <input type='number' name='añadir_cliente_codigo_postal'></br>
-                            <label for='añadir_cliente_codigo_area'>Codigo de area:</label>
-                            <input type='number' name='añadir_cliente_codigo_area'></br>
-                            <label for='añadir_cliente_telefono'>Telefono:</label>
-                            <input type='number' name='añadir_cliente_telefono'></br>
-                            <label for='id'>Vendedor ID:</label>
-                            <select name='añadir_cliente_vendedor_id'>";
+                            <label for='id'>Ubicacion ID:</label>
+                            <select name='añadir_ubicacion_id'>";
                             $sql= "SELECT * FROM UBICACION";
                             foreach ($conn->query($sql) as $row){
                                 echo "<option value='". $row["Ubicacion_ID"] ."'>". $row["Ubicacion_ID"] ."</option>";
                             }
                             echo "</select></br>
-                            <label for='añadir_cliente_credito'>Limite de credito:</label>
-                            <input type='number' name='añadir_cliente_credito'></br>
-                            <label for='añadir_cliente_comentario'>Comentario:</label>
-                            <input type='text' name='añadir_cliente_comentario'></br>
                             <span><input type='submit' name='añadir_acabado' value='Añadir cliente'></span>
                             </form>
                             <form action='' method='post'>
@@ -321,6 +308,7 @@
                             <span><input type='submit' name='volver' value='Volver'></span>
                             </form>";
                         }
+                    }else{
                     echo "<div><table class='alineador'>";
                     echo "<tr><th>departamento_ID</th>
                         <th>Nombre</th>
