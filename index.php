@@ -11,12 +11,14 @@
     <div class="navigationBar">
         <h1>PUFOSA S.L.</h1>
     </div>
-    <form action="main.php" method="post">
-        <label for="id">Id:</label>
-        <input type="text" name="id" required></input>
-        <label for="password">Contraseña:</label>
-        <input type="text" name="password" required></input>
-        <p><input type="submit" name="botonEnviar" value="Ingersar"></p>
-    </form>
+    <div class="menu">
+        <form action="main.php" method="post">
+            <label for="usuario">Id:</label>
+            <input type="number" name="usuario" max="3" required></input>
+            <label for="password">Contraseña:</label>
+            <input type="text" name="password" pattern="admin" required></input>
+            <p><input type="submit" name="botonEnviar" value="Ingersar"></p>
+        </form>
+    </div>
 </body>
 </html>
