@@ -181,7 +181,16 @@
                         </form></td>
                         <td><form action='' method='post'>
                         <input type='hidden' name='pagina' value='2'></input>
-                        <input type='hidden' name='borrar_empleado' value=''>
+                        <input type='hidden' name='editar_cliente_id' value='". $row["empleado_ID"] ."'>
+                        <input type='hidden' name='editar_cliente_nombre' value='". $row["Apellido"] ."'>
+                        <input type='hidden' name='editar_cliente_direccion' value='". $row["Nombre"] ."'>
+                        <input type='hidden' name='editar_cliente_ciudad' value='". $row["Inicial_del_segundo_apellido"] ."'>
+                        <input type='hidden' name='editar_cliente_estado' value='". $row["Trabajo_ID"] ."'>
+                        <input type='hidden' name='editar_cliente_codigo_postal' value='". $row["Jefe_ID"] ."'>
+                        <input type='hidden' name='editar_cliente_codigo_area' value='". $row["Fecha_contrato"] ."'>
+                        <input type='hidden' name='editar_cliente_telefono' value='". $row["Salario"] ."'>
+                        <input type='hidden' name='editar_cliente_vendedor_id' value='". $row["Comision"] ."'>
+                        <input type='hidden' name='editar_cliente_credito' value='". $row["Departamento_ID"] ."'>
                         <span><input type='submit' name='editar' value='🖉' style='font-size: 20px; font-weight:25px'></span>
                         </form></td></tr>";
                     }
@@ -199,7 +208,7 @@
                             $stmt = $conn->prepare($sql);
                             $stmt->bindParam(1,$_POST['añadir_departamento_id']);
                             $stmt->bindParam(2,$_POST['añadir_nombre']);
-                            $stmt->bindParam(2,$_POST['añadir_ubicacion_id']);
+                            $stmt->bindParam(3,$_POST['añadir_ubicacion_id']);
                             $stmt->execute();
                             $mensaje = "Ubicacion insertada correctamente";
                         }catch(PDOException $e){
@@ -208,7 +217,7 @@
                     }
                     if(isset($_POST['editar_acabado'])){
                         $sql ="UPDATE departamento SET 
-                            , Nombre = ?
+                             Nombre = ?
                             , Ubicacion_ID = ?
                             WHERE departamento_ID = ?";
                             $stmt = $conn->prepare($sql);
@@ -269,9 +278,9 @@
                             <form action='' method='post'>
                             <input type='hidden' name='pagina' value='3'></input>
                             <label for='añadir_departamento_id'>Departamento id:</label>
-                            <input type='number' name='añadir_cliente_id'></br>
-                            <label for='añadir_cliente_nombre'>Nombre:</label>
-                            <input type='text' name='añadir_cliente_nombre'></br>
+                            <input type='number' name='añadir_departamento_id'></br>
+                            <label for='añadir_nombre'>Nombre:</label>
+                            <input type='text' name='añadir_nombre'></br>
                             <label for='id'>Ubicacion ID:</label>
                             <select name='añadir_ubicacion_id'>";
                             $sql= "SELECT * FROM UBICACION";
@@ -290,11 +299,12 @@
                             <form action='' method='post'>
                             <input type='hidden' name='pagina' value='3'></input>
                             <label for='id'>Id del cliente:</label>
-                            <input type='number' name='editar_cliente_id' value='".$_POST['editar_cliente_id']."' readonly></br>
+                            <input type='number' name='editar_departamento_id' value='".$_POST['editar_departamento_id']."' readonly></br>
                             <label for='id'>Nombre:</label>
-                            <input type='text' name='editar_cliente_nombre' placeholder='".$_POST['editar_cliente_nombre']."'></br>
-                            <select name='editar_cliente_vendedor_id'>
-                                <option value='".$_POST['editar_cliente_vendedor_id']."' selected='selected'>".$_POST['editar_cliente_vendedor_id']."</option>";
+                            <input type='text' name='editar_nombre' placeholder='".$_POST['editar_nombre']."'></br>
+                            <label for='id'>Ubicacion ID:</label>
+                            <select name='editar_ubicacion_id'>
+                                <option value='".$_POST['editar_ubicacion_id']."' selected='selected'>".$_POST['editar_ubicacion_id']."</option>";
                             $sql= "SELECT * FROM UBICACION";
                             foreach ($conn->query($sql) as $row){
                                 echo "<option value='". $row["Ubicacion_ID"] ."'>". $row["Ubicacion_ID"] ."</option>";
