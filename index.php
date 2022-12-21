@@ -14,7 +14,7 @@
     <div class="menu">
         <form action="main.php" method="post">
             <label for="usuario">Id:</label>
-            <input type="number" name="usuario" max="3" required></input>
+            <input type="number" name="usuario"  required></input>
             <label for="password">Contraseña:</label>
             <input type="text" name="password" pattern="admin" required></input>
             <p><input type="submit" name="botonEnviar" value="Ingersar"></p>
